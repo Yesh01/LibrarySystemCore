@@ -11,6 +11,7 @@ public class DatabaseService {
 
     public static Connection getConnection() throws SQLException {
         Connection connection = null;
+        
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -24,6 +25,8 @@ public class DatabaseService {
             throw e;
         }
         return connection;
+
+    
     }
 
 }
