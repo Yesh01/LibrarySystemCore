@@ -1,0 +1,80 @@
+My Databases USED:
+
++--------------------+
+| Database           |
++--------------------+
+| Library_System     |
+| auction_db         |
+| information_schema |
+| my_first_db        |
+| mysql              |
+| performance_schema |
++--------------------+
+
+--> USED Library_System;
+
+--> SHOW TABLES:
+
++--------------------------+
+| Tables_in_Library_System |
++--------------------------+
+| booking_details          |
+| books                    |
+| login                    |
+| students                 |
++--------------------------+
+
+DESCRIBE EACH:
+
+--> Booking Detals:
++---------+-----------+------+-----+---------+----------------+
+| Field   | Type      | Null | Key | Default | Extra          |
++---------+-----------+------+-----+---------+----------------+
+| id      | mediumint | NO   | PRI | NULL    | auto_increment |
+| std_id  | mediumint | NO   | MUL | NULL    |                |
+| book_id | mediumint | NO   | MUL | NULL    |                |
+| qty     | int       | NO   |     | NULL    |                |
++---------+-----------+------+-----+---------+----------------+
+
+--> books:
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | mediumint    | NO   | PRI | NULL    | auto_increment |
+| serial_no   | int          | NO   |     | NULL    |                |
+| NAME        | varchar(100) | NO   |     | NULL    |                |
+| author_name | varchar(100) | NO   |     | NULL    |                |
+| qty         | int          | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+
+--> login
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| id        | mediumint    | NO   | PRI | NULL    | auto_increment |
+| user_name | varchar(255) | NO   |     | NULL    |                |
+| PASSWORD  | varchar(100) | NO   |     | NULL    |                |
+| user_type | varchar(100) | NO   |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+
+--> students:
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | mediumint    | NO   | PRI | NULL    | auto_increment |
+| std_name | varchar(100) | NO   |     | NULL    |                |
+| reg_num  | varchar(100) | NO   |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+
+------------> DATA's
+
+#login -->
++----+-----------+----------+-----------+
+| id | user_name | PASSWORD | user_type |
++----+-----------+----------+-----------+
+|  1 | admin     | admin    | admin     |
+|  2 | user      | user     | user      |
++----+-----------+----------+-----------+
+
+
+
