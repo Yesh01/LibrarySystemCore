@@ -11,6 +11,7 @@ public class LoginDB {
 
         String query = "SELECT * FROM login WHERE user_name = ? AND PASSWORD = ?";
 
+        // Connection for Private Data to Login
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, userName);
             ps.setString(2, password);
