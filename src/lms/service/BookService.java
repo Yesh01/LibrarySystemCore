@@ -10,14 +10,14 @@ public class BookService {
 
     Scanner myBabyScanner = new Scanner(System.in);
 
-    // Method -->
+    // ----->  Method to search by Serial Number based on Database
     public void searchBySrlNo(Connection connection) throws SQLException {
 
         System.out.println("[ :> ] Enter Serial No: ");
         int srlNo = myBabyScanner.nextInt();
 
         BookDB database = new BookDB();
-        Book book = database.getBooksBySrlNo(connection, srlNo);
+        Book book = database.getBooksBySrlNo(connection, srlNo); // ---> Databases Getter Void
 
         if (book != null) {
 

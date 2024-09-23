@@ -10,13 +10,14 @@ public class LoginService {
 
     Scanner myBabyScanner = new Scanner(System.in);
 
+    // Log-in Session --->
     public void doLogin() throws ClassNotFoundException, SQLException {
         System.out.println("[ :> ] Username: ");
         String userName = myBabyScanner.nextLine();
-
         System.out.println("[ :> ] Passwrod: ");
         String password = myBabyScanner.nextLine();
 
+        // Connection to Database Service Class --->
         try (Connection connection = DatabaseService.getConnection()) {
 
             LoginDB loginDB = new LoginDB();
@@ -33,7 +34,7 @@ public class LoginService {
 
             
             if(userType.equals("admin")){
-                displayAdminMenu(connection);
+                displayAdminMenu(connection); // -----> Admin Flow
             }
             else {
                 System.out.println(" . "); // Display Student Related Menu
@@ -45,7 +46,7 @@ public class LoginService {
         int choice;
 
         do {
-
+            //                       ----> Admin's Main Menu
             System.out.println("                                        ");
             System.out.println("   [ 1. ] Search a Book                 ");
             System.out.println("   [ 2. ] Add a New Book                ");
@@ -59,6 +60,7 @@ public class LoginService {
             System.out.println("[ :> ] Please Enter Your Choice: ");
             choice = myBabyScanner.nextInt();
 
+            //                       ----> Functionalities for Options
             switch (choice) {
                 case 1:
                     searchBook(connection);
@@ -82,6 +84,8 @@ public class LoginService {
             
         } while (choice != 7);
     }
+
+    //  ----->  Sub-Options for Search from [Search a Book Button]
 
     private void searchBook(Connection connection) throws SQLException {
 
