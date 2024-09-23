@@ -1,18 +1,23 @@
-## Getting Started
+# Java SQL Connectivity Project
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Description
 
-## Folder Structure
+This project is part of a learning journey focused on mastering **Java** and **database connectivity using SQL**. As a student developer, the primary goal is to explore the fundamentals of connecting Java code with SQL databases **without relying on GUI tools** like MySQL Workbench.
 
-The workspace contains two folders by default, where:
+### Project Highlights:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+- **Core Java**: This project is implemented without any graphical user interface (UI).
+- **JDBC (Java Database Connectivity)**: Focuses on direct database operations through Java code.
+- **SQL**: The project explores essential SQL queries and interactions with a database.
+- **Learning-Oriented**: Designed as a reconstruction of a university lab project, the emphasis is on reinforcing core concepts related to database connectivity and SQL through Java.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+### Objectives:
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+1. Build familiarity with Java-to-SQL connectivity.
+2. Implement database operations using **SQL** without a UI tool.
+3. Enhance understanding of **JDBC** and database functionality within Java.
+4. Practice creating a fully functional core project using pure Java.
 
-## Dependency Management
+---
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+This project is a work-in-progress and part of an ongoing learning process.
