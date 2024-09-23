@@ -2,6 +2,8 @@ package lms.model;
 
 public class Book {
 
+    /*Setter & Getter Construction */
+
     private int id;
     private int srlNo;
     private String bookName;
