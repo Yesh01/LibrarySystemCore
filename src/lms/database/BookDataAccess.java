@@ -3,6 +3,7 @@ package lms.database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLDataException;
 import java.sql.SQLException;
 import lms.model.Book;
 
@@ -28,7 +29,7 @@ import lms.model.Book;
 |  3 |       103 | PyGods Language 3088 | Emil        |   98 |
 +----+-----------+----------------------+-------------+------+ */
 
-public class BookDB {
+public class BookDataAccess {
 
     // ---> @Option [ 1 ] --> Search/Retrive by Serial Number
 
@@ -88,4 +89,58 @@ public class BookDB {
         return null;
     }
 
-}
+    //   ----> Method for Checking Validation in Duplication when Inserting new data
+
+    public Book fetchBookByAuthorOrSerial(Connection connection, String authorName, int srlNo) throws SQLException {
+
+        String query = "SELECT * FROM books WHERE author_name = ? OR serial_no = ?";
+
+        try(PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setString(1, authorName);
+            ps.setInt(2, srlNo);
+
+            try(ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    Book book = new Book();
+                    book.setAuthorName(rs.getString("author_name"));
+                    book.setBookName(rs.getString("NAME"));
+                    book.setBookQty(rs.getInt("Qty"));
+                    book.setId(rs.getInt("id"));
+                    book.setSrlNo(rs.getInt("serial_no"));
+                    return book;
+                }
+            }
+        }
+        return null;
+    }
+
+    //     ----> Method for Official Saving the Collected New Data to Databases
+
+    public void saveBook(Connection connection, Book book) throws SQLException {
+
+        String query = "INSERT INTO books(serial_no, NAME, author_name, qty) VALUES (?, ?, ?, ?)";
+
+        try(PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, book.getSrlNo());
+            ps.setString(2, book.getBookName());
+            ps.setString(3, book.getAuthorName());
+            ps.setInt(4, book.getBookQty());
+
+            int rows = ps.executeUpdate();
+
+            if(rows > 0) {
+                System.out.println("[ :> ] Book Added Succesfully.");
+            } else {
+                System.out.println("[ !! ] Failed to Add Book");
+            }
+
+            }
+        }
+    }
+
+    
+
+

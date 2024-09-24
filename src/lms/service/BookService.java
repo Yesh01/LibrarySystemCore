@@ -3,12 +3,12 @@ package lms.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
-import lms.database.BookDB;
+import lms.database.BookDataAccess;
 import lms.model.Book;
 
 public class BookService {
 
-    Scanner myBabyScanner = new Scanner(System.in);
+    Scanner myBabyScanner = new Scanner(System.in);  // --> Main Scanner @Hopefully don't forgot your Baby!
 
     // ----->  Method to [Search] by Serial Number based on Database
     public void searchBySrlNo(Connection connection) throws SQLException {
@@ -16,7 +16,7 @@ public class BookService {
         System.out.println("[ :> ] Enter Serial No: ");
         int srlNo = myBabyScanner.nextInt();
 
-        BookDB database = new BookDB();
+        BookDataAccess database = new BookDataAccess();
         Book book = database.getBooksBySrlNo(connection, srlNo); // ----> Databases Getter Void
 
         if (book != null) {
@@ -38,7 +38,7 @@ public class BookService {
         System.out.println("[ :> ] Enter Author Name: ");
         String authorName = myBabyScanner.nextLine();
 
-        BookDB database = new BookDB();
+        BookDataAccess database = new BookDataAccess();
         Book book = database.getBooksByAuthorName(connection, authorName); // ---> Databases Getter Void too
 
         if (book != null) {
@@ -54,5 +54,52 @@ public class BookService {
             System.out.println("[ !! ] No Book for Author Name: " + authorName + " Not Found.");
         }
     }
+
+    public void addBook(Connection connection) throws SQLException {
+
+        System.out.println("                                                   ");
+        System.out.println("          * ----- Adding a Book ----- *            ");
+        System.out.println("                                                   ");
+
+        System.out.println("[ :> ] Enter the Serial No# of the Book: ");
+        int srlNo = myBabyScanner.nextInt();
+        myBabyScanner.nextLine();
+
+        System.out.println("[ :> ] Enter a Book Name: ");
+        String bookName = myBabyScanner.nextLine();
+
+        System.out.println("[ :> ] Enter an Author Name: ");
+        String authorName = myBabyScanner.nextLine();
+
+        System.out.println("[ :> ] Enter a Quantity of Books: ");
+        int qty = myBabyScanner.nextInt();
+
+        BookDataAccess bookDataAccess = new BookDataAccess();
+        Book existingBokk = bookDataAccess.fetchBookByAuthorOrSerial(connection, authorName, srlNo);
+
+        if(existingBokk != null) {
+            System.out.println("[ !! ] Book details exist into our System.");
+            System.out.println("[ !! ] Please Add another Book");
+            return;
+        }
+
+        Book addingBookData = new Book();
+        addingBookData.setSrlNo(srlNo);
+        addingBookData.setBookName(bookName);
+        addingBookData.setAuthorName(authorName);
+        addingBookData.setBookQty(qty);
+
+        bookDataAccess.saveBook(connection, addingBookData);
+        
+
+
+
+    }
+
+
+    
+
+
+
 
 }

@@ -3,7 +3,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 import lms.database.DatabaseService;
-import lms.database.LoginDB;
+import lms.database.LoginDataAccess;
 import lms.service.BookService;
 
 public class LoginService {
@@ -20,7 +20,7 @@ public class LoginService {
         // Connection to Database Service Class --->
         try (Connection connection = DatabaseService.getConnection()) {
 
-            LoginDB loginDB = new LoginDB();
+            LoginDataAccess loginDB = new LoginDataAccess();
             String userType = loginDB.doLogin(connection, userName, password);
 
             if(userType == null) {
@@ -44,6 +44,7 @@ public class LoginService {
     public void displayAdminMenu(Connection connection) throws SQLException {
 
         int choice;
+        BookService bookService = new BookService();
 
         do {
             //                       ----> Admin's Main Menu
@@ -66,6 +67,7 @@ public class LoginService {
                     searchBook(connection);
                     break;
                 case 2:
+                    bookService.addBook(connection);
                     break;
                 case 3:
                     break;

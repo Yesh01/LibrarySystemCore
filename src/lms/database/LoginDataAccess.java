@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginDB {
+public class LoginDataAccess {
 
     public String doLogin(Connection connection, String userName, String password) throws SQLException{
 
