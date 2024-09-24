@@ -1,3 +1,214 @@
-[TO BE CONTINUE]
+---> Overview of the Algorithm ---*
 
---> In Progress
+This algorithm is based on two major roles: Admin and User. Each has its own menu of operations which interacts with a database via the BookDB, LoginDB, StudentDB, and respective service classes. The login will authenticate the user, and based on their role, they will either get the admin or user menu.
+
+---> Pseudocode Outline
+
+Step 1: Login System
+
+INPUT:
+ *Username
+ *Password
+
+PROCESS:
+   CALL LoginDB.doLogin(username, password) to check credentials from the database.
+     IF the username-password combo is invalid, SHOW Error "Invalid username or password".
+     IF the login is successful, determine whether the user is Admin OR User.
+
+OUTPUT:
+Redirect to the Respective Menu [ Admin OR User ].
+
+Step 2: Admin Menu [ After successful Admin Login ]
+
+@Admin Options:
+
+[ 1 ] Search a Book
+[ 2 ] Add a New Book
+[ 3 ] Update Book Quantity
+[ 4 ] Show All Books
+[ 5 ] Register a Student
+[ 6 ] Show All Registered Students
+[ 7 ] Exit System
+
+---> Switch Case Implementation:
+
+Switch(CHOICE)
+    case 1:
+        --> Search a book (By Serial Number OR Author Name) BELOW SUB_OPTIONS
+        !CALL BookService.searchBySerlNo() OR BookService.searchByAuthorName()
+        brk;
+    case 2:
+        --> Add a new book to the database
+        !CALL BookService.addBook()
+        brk;
+    case 3:
+        --> Update the quantity of a specific book
+        !CALL BookService.updateBookQty()
+        brk;
+    case 4:
+        --> Display all books in the library
+        !CALL BookService.getAllBooks()
+        brk;
+    case 5:
+        --> Register a new student
+        !CALL StudentService.addStudent()
+        brk;
+    case 6:
+        --> Show all registered students
+        !CALL StudentService.getAllStudents()
+        Brk;
+    case 7:
+        --> Exit the system
+        Sout("Exiting the system.");
+        !exitProgram();
+        Brk;
+    default:
+        --> Handle invalid option
+        Sout("Please choose a valid option.");
+
+Step 3: User Menu [ After successful User Login ]
+
+@User Options:
+
+[ 1 ] Search a Book
+[ 2 ] Check Out Book
+[ 3 ] Check In Book
+[ 4 ] Exit System
+
+---> Switch Case Implementation:
+
+Switch(CHOICE)
+    case 1:
+        --> Search a book [ By Serial Number OR Author Name] BELOW SUB_OPTIONS
+        !CALL BookService.searchBySerlNo() OR BookService.searchByAuthorName()
+        brk;
+    case 2:
+        --> Check out a book
+        !CALL BookService.checkOutBook()
+        brk;
+    case 3:
+        --> Check in a book
+        !CALL BookService.checkInBook()
+        brk;
+    case 4:
+        --> Exit the system
+        Sout("Exiting the system.");
+        !exitProgram();
+        brk;
+    default:
+        --> Handle invalid option
+        Sout("Please choose a valid option.");
+
+---> Detailed Algorithm Breakdown
+
+~ Login Flow Algorithm:
+
+FUNC: LoginService.doLogin(username, password)
+
+[ 1 ] INPUT Validation: CHECK IF username and password are provided.
+
+      IF Missing: SHOW an Error Message: Invalid input! Please provide both username and password.
+
+[ 2 ] Query the Database: USE LoginDB.doLogin(username, password) to validate credentials.
+
+      !IF Invalid Credentials: SHOW Error Message: Invalid username or password.
+
+      !IF Valid Credentials:
+
+          CHECK IF the user is admin-admin:
+                IF TRUE, load the Admin Menu.
+          CHECK IF the user is user-user:
+                IF TRUE, load the User Menu.
+
+~ Admin Menu Options Details:
+
+!Option 1: Search a Book
+
+[ 1 ] Search Options:
+    
+      SHOW Sub-Options: Search by Serial No# OR Author Name
+      Search by Serial Number: CALL BookService.searchBySerlNo()
+      Search by Author Name: CALL BookService.searchByAuthorName()
+
+[ 2 ] FUNCS Call Breakdown:
+
+      BookDB.getBookBySerialNo() RETRIEVES the book with the given Serial No.
+      BookDB.getBooksByAuthorName() RETRIEVES all books by the specified Author Name.
+
+!Option 2: Add a New Book
+
+      CALL BookService.addBook().
+      This will save the new book details using BookDB.saveBook().
+
+      STEPS:
+      Inputs Required: Book title, author, serial number, quantity.
+      Error Handling:
+          IF any field is missing, SHOW an Error Message.
+          DB INSERT: USE BookDB.saveBook() to ADD the book to the DATABSE.
+      Success Message: "Book added successfully."
+
+!Option 3: Update Book Quantity
+
+      CALL BookService.updateBookQty().
+      Update the quantity of a book by providing the serial number.
+
+      STEPS:
+      Input Required: Book serial number and new quantity.
+      FUNC CALL: BookDB.updateBookQty()
+      Error Handling:
+         IF the Serial Number is Invalid OR not found, SHOW an Error Message.
+         IF the quantity is Invalid, SHOW an Error Message.
+
+!Option 4: Show All Books
+
+       CALL BookService.getAllBooks().
+       Fetch and display all books in the library.
+       
+       FUNC CALL: BookDB.getAllBooks()
+
+!Option 5: Register a Student
+
+       CALL StudentService.addStudent().
+       This will add a new student to the system using StudentDB.saveStudent().
+
+       STEPS:
+       Input Required: Student name, ID, course.
+       Error Handling: IF any field is Missing, SHOW an Error Message.
+
+!Option 6: Show All Registered Students
+
+       CALL StudentService.getAllStudents().
+       Fetch and display all students from the database.
+       
+       FUNC CALL: StudentDB.getAllStudent()
+
+~ User Menu Options Details:
+
+!Option 1: Search a Book
+       
+       Same as Admin's Search a Book Functionality:
+       SEARCH BY Serial Number OR Author Name.
+
+!Option 2: Check Out Book
+
+       CALL BookService.checkOutBook().
+       Marks a Book as CHECKED OUT by a User.
+       
+       STEPS:
+       Input Required: Book Serial No#, Student ID.
+       DB UPDATE: USE StudentDB.saveBookingDetails() to save the checkout details.
+       Error Handling:
+         IF the Book is already CHECKED OUT, SHOW an Error Message.
+         IF the Serial No# OR Student ID is Invalid, SHOW an Error Message.
+
+!Option 3: Check In Book
+     
+     CALL BookService.checkInBook().
+     Marks a Book as RETURNED by a User.
+     
+     STEPS:
+     Input Required: Book Serial No#, Student ID.
+     DB UPDATE: USE StudentDB.deleteBookingDetails() to REMOVE the checkout record.
+     Error Handling:
+         IF the Book isn't CHECKED OUT, SHOW an Error Message.
+         IF the Serial No# OR Student ID is Invalid, SHOW an Error Message.

@@ -1,3 +1,17 @@
-[TO BE FILL UP]
+--> Directory File Structured Flow
 
----> In Progress
+LibraryManagementSystem/
+├── database/
+│   ├── BookDB.java
+│   ├── DatabaseService.java
+│   ├── LoginDB.java
+│   └── StudentDB.java
+├── login/
+│   └── LoginService.java
+├── models/
+│   ├── Book.java
+│   └── BookingDetails.java
+├── service/
+│   ├── BookService.java
+│   └── StudentService.java
+└── LibraryManagementSystem.java
