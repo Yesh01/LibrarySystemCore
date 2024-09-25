@@ -3,7 +3,6 @@ package lms.database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLDataException;
 import java.sql.SQLException;
 import lms.model.Book;
 
@@ -136,10 +135,34 @@ public class BookDataAccess {
             } else {
                 System.out.println("[ !! ] Failed to Add Book");
             }
+        }
+    }
+    
+    public void updateBookQty(Connection connection, Book book) throws SQLException {
 
+        String query = "UPDATE books SET qty = ? WHERE serial_no = ? ";
+
+        try(PreparedStatement ps = connection.prepareStatement(query)) {
+    
+            ps.setInt(1, book.getBookQty());
+            ps.setInt(2, book.getSrlNo());
+    
+            int rows = ps.executeUpdate();
+    
+            if(rows > 0) {
+
+                System.out.println("[ :> ] Book Updated Succesfully!");
+            }
+            else {
+                System.out.println("[ !! ] Failed to Update Book");
             }
         }
     }
+}
+
+
+
+
 
     
 

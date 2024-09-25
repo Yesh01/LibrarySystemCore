@@ -55,6 +55,8 @@ public class BookService {
         }
     }
 
+    // ----> Method to Collect the Inputs of New Data to Adding a Book
+
     public void addBook(Connection connection) throws SQLException {
 
         System.out.println("                                                   ");
@@ -90,9 +92,30 @@ public class BookService {
         addingBookData.setBookQty(qty);
 
         bookDataAccess.saveBook(connection, addingBookData);
-        
 
+    }
 
+    public void updateBookQty(Connection connection) throws SQLException {
+
+        System.out.println("[ :> ] Enter the Serial No# of the Book: ");
+        int srlNo = myBabyScanner.nextInt();
+
+        BookDataAccess dataAccess = new BookDataAccess();
+        Book book = dataAccess.getBooksBySrlNo(connection, srlNo);
+
+        if (book == null) {
+            System.out.println("[ !! ] Book not Available!");
+            return;
+        }
+
+        System.out.println("[ :> ] Enter No# of Books to be Added: ");
+        int addedQty = myBabyScanner.nextInt();
+
+        Book inputSum = new Book();
+        inputSum.setBookQty(book.getBookQty() + addedQty);
+        inputSum.setSrlNo(srlNo);
+
+        dataAccess.updateBookQty(connection, inputSum);
 
     }
 

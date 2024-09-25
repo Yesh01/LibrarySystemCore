@@ -61,7 +61,8 @@ public class LoginService {
             System.out.println("[ :> ] Please Enter Your Choice: ");
             choice = myBabyScanner.nextInt();
 
-            //                       ----> Functionalities for Options
+            //    ----> Functionalities for Options
+            
             switch (choice) {
                 case 1:
                     searchBook(connection);
@@ -70,6 +71,7 @@ public class LoginService {
                     bookService.addBook(connection);
                     break;
                 case 3:
+                    bookService.updateBookQty(connection);
                     break;
                 case 4:
                     break;
