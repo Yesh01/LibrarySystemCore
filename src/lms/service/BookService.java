@@ -2,6 +2,7 @@ package lms.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 import lms.database.BookDataAccess;
 import lms.model.Book;
@@ -95,6 +96,8 @@ public class BookService {
 
     }
 
+    // ----> Method to Collect the the request of changes [Adding Qty] then proceed in DOA Functionality
+
     public void updateBookQty(Connection connection) throws SQLException {
 
         System.out.println("[ :> ] Enter the Serial No# of the Book: ");
@@ -119,10 +122,31 @@ public class BookService {
 
     }
 
+    // Method for printing all the data as reuseable code functionality
 
-    
+    public void displayCurrentBooks(Connection connection) throws SQLException {
 
+        BookDataAccess dataAccess = new BookDataAccess();
+        List<Book> allBooks = dataAccess.displayCurrentBooks(connection);
+        
+        System.out.println("                                                                                                   ");
+        System.out.println("                                      --- Library Information ---                                  ");
+        System.out.println("                                                                                                   ");
+        System.out.println("|-------------------|-------------------------------------|------------------------|--------------|");
+        System.out.println("| Book Serial No#   |               Book Name             |       Author Name      |   Quantity   |");
+        System.out.println("|-------------------|-------------------------------------|------------------------|--------------|");
+        
+        for (Book book : allBooks) {
 
+            System.out.printf("| %-17s | %-35s | %-22s | %-12s |\n",
 
+                              book.getSrlNo(),
+                              book.getBookName(),
+                              book.getAuthorName(),
+                              book.getBookQty());
+        }
+        
+        System.out.println("|-------------------|-------------------------------------|------------------------|--------------|");
+    }
 
 }

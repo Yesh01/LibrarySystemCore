@@ -74,6 +74,7 @@ public class LoginService {
                     bookService.updateBookQty(connection);
                     break;
                 case 4:
+                    bookService.displayCurrentBooks(connection);
                     break;
                 case 5:
                     break;

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import lms.model.Book;
 
 
@@ -137,6 +139,8 @@ public class BookDataAccess {
             }
         }
     }
+
+    // Method for adding a quantity to Database based on serial no# for Quantity Fields
     
     public void updateBookQty(Connection connection, Book book) throws SQLException {
 
@@ -157,7 +161,43 @@ public class BookDataAccess {
                 System.out.println("[ !! ] Failed to Update Book");
             }
         }
+    
     }
+
+    // ---> Method for retrieving the data from database connectivity as follow D-A-O Strategy
+
+    public List<Book> displayCurrentBooks(Connection connection) throws SQLException {
+
+        String query = "SELECT * FROM books";
+
+        // --> Using ArrayLists
+
+        List<Book> allBooks = new ArrayList<>();
+
+        try(PreparedStatement ps = connection.prepareStatement(query)) {
+            try(ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    Book book = new Book();
+
+                    book.setAuthorName(rs.getString("author_name"));
+                    book.setBookName(rs.getString("NAME"));
+                    book.setBookQty(rs.getInt("qty"));
+                    book.setSrlNo(rs.getInt("serial_no"));
+                    book.setId(rs.getInt("id"));
+
+                    allBooks.add(book);
+                }
+            }
+        }
+
+        return allBooks;
+
+    }
+
+
+
 }
 
 
