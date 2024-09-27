@@ -38,7 +38,7 @@ public class LoginService {
                 displayAdminMenu(connection); // -----> Admin Flow
             }
             else {
-                System.out.println("user"); // Display Student Related Menu
+                displayUserMenu(connection);
             }
         }
     }
@@ -57,7 +57,7 @@ public class LoginService {
             System.out.println("   [ 4. ] Show All Books                ");
             System.out.println("   [ 5. ] Register Student              ");
             System.out.println("   [ 6. ] Show All Registered Students  ");
-            System.out.println("   [ 7. ] Exit From Application         ");
+            System.out.println("   [ 7. ] Exit From System         ");
             System.out.println("                                        ");
 
             System.out.println("[ :> ] Please Enter Your Choice: ");
@@ -121,7 +121,49 @@ public class LoginService {
 
     }
 
+    public void displayUserMenu(Connection connection) {
 
+        int choice;
+        BookService bookService = new BookService(); // --> Not Use yet
+        StudentService studentService = new StudentService(); // Not Use yet
+
+        /*
+         * Search
+         * in
+         * out
+         * Exit
+         */
+
+        do {
+
+            System.out.println("                                        ");
+            System.out.println("   [ 1. ] Search a Book                 ");
+            System.out.println("   [ 2. ] Check-In a Book               ");
+            System.out.println("   [ 3. ] Check-Out a Book              ");
+            System.out.println("   [ 4. ] Exit From System              ");
+            System.out.println("                                        ");
+
+            System.out.println("[ :> ] Please Enter Your Choice: ");
+            choice = myBabyScanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    System.out.println("[ :> ] Exiting...");
+                    break;
+                default:
+                    System.out.println("[ !! ] Please Select a Valid Option");
+            }
+
+        } while( choice != 4);
+        
+
+    }
 
 
 }

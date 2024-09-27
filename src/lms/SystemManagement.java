@@ -7,7 +7,7 @@ public class SystemManagement {
     public static void main(String[] args) throws ClassNotFoundException, SQLException { 
 
         System.out.println("                                               ");
-        System.out.println("   --- Welcome to Universitiy's Library! ---   ");
+        System.out.println("   --- Welcome to University's Library! ---   ");
         System.out.println("                                        ");
 
         System.out.println("[ :> ] Please do Login -->    ");
