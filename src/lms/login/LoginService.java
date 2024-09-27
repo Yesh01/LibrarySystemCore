@@ -5,12 +5,13 @@ import java.util.Scanner;
 import lms.database.DatabaseService;
 import lms.database.LoginDataAccess;
 import lms.service.BookService;
+import lms.service.StudentService;
 
 public class LoginService {
 
     Scanner myBabyScanner = new Scanner(System.in);
 
-    // Log-in Session --->
+    // Log-in Session ---->
     public void doLogin() throws ClassNotFoundException, SQLException {
         System.out.println("[ :> ] Username: ");
         String userName = myBabyScanner.nextLine();
@@ -37,14 +38,15 @@ public class LoginService {
                 displayAdminMenu(connection); // -----> Admin Flow
             }
             else {
-                System.out.println(" . "); // Display Student Related Menu
+                System.out.println("user"); // Display Student Related Menu
             }
         }
     }
     public void displayAdminMenu(Connection connection) throws SQLException {
 
         int choice;
-        BookService bookService = new BookService();
+        BookService bookService = new BookService(); //  Connectivity from Layout Book Service
+        StudentService studentService = new StudentService(); // Connectivity from Layout Student Service
 
         do {
             //                       ----> Admin's Main Menu
@@ -77,8 +79,10 @@ public class LoginService {
                     bookService.displayCurrentBooks(connection);
                     break;
                 case 5:
+                    studentService.addStudent(connection);
                     break;
                 case 6:
+                    studentService.displayAllStudents(connection);
                     break;
                 case 7:
                     System.out.println("[ !! ] Exiting... ");

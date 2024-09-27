@@ -9,7 +9,7 @@ import java.util.List;
 import lms.model.Book;
 
 
-// TABLE --> books
+// ---> Book's Table DB Structured [books]
 
 /*+-------------+--------------+------+-----+---------+----------------+
 | Field       | Type         | Null | Key | Default | Extra          |
@@ -41,7 +41,9 @@ public class BookDataAccess {
         try(PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, srlNo);
 
-            try(ResultSet rs = ps.executeQuery()) { // ---> Way for Setter & Getter to Function the Connected in Databses
+            try(ResultSet rs = ps.executeQuery()) {
+                
+                // ---> Way for Setter & Getter to Function the Connected in Databses
 
                 if(rs.next()) {
 
