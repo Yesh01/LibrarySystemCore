@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 import lms.database.BookDataAccess;
+import lms.database.StudentDataAccess;
 import lms.model.Book;
 
 public class BookService {
@@ -148,5 +149,69 @@ public class BookService {
         
         System.out.println("|-------------------|-------------------------------------|------------------------|--------------|");
     }
+
+    /*               Check-In || Check-Out                */
+    // ---> Borrow & Return Buisness Logic Flow Here [ !! ]
+    
+
+    /*                 [Check-IN]                    */
+
+    public void returnBook(Connection connection) {
+
+        /*
+         *  [ 1 ]  Input For Reg No# for Verification
+         *  [ 2 ]  After Verification Search by Reg No# Will Displayed Book Details
+         *         that assigned lists for specific student after retrieved too the ID
+         *         of the Registered Student
+         *  [ 3 ]  Input Book Serial Numnber for Choices
+         *  [ 4 ]  Using the [Stream API Filtered] recommended to the selected book in
+         *         Booking Details in the lists of borrowed books maybe else not found will be null
+         *  [ 5 ]  Update +1 the qty of Books in Database.
+         */
+
+        // :p
+
+        StudentDataAccess dataAccess = new StudentDataAccess(); // --> not yet
+
+        System.out.println("[ :> ] Enter Registration Number: ");
+        String regNum = myBabyScanner.nextLine();
+
+        // boolean isExists = dataAccess.isRegistered(connection, regNum); // [ 2 ]
+
+        if (!isExists) {
+            System.out.println("[ !! ] Student is not Registered");
+            System.out.println("[ !! ] Please Register Firsts to the Admin NU-ITSO");
+            return;
+        }
+
+        // int id = dataAccess.getStudentIdByRegNo(connection, regNum);
+        // --> To Show Displayed Lists Here
+
+        // --> Stream API Usage
+
+        System.out.println("[ :> ] Enter Serial No# of Book to be Check-In: ");
+        int srlNo = myBabyScanner.nextInt();
+
+        // -->
+
+        BookDataAccess dBookDataAccess = new BookDataAccess();
+        // Book book = dBookDataAccess.getBooksBySrlNo(connection, srlNo);
+        book.setBookQty(book.getBookQty() + 1);
+
+        // --> Update Qty
+        // --> Also Delete as last
+
+        // --> Continuation Tommorow After Sunday Service
+
+    }
+
+    /*                 [Check-OUT]                 */
+
+    public void borrowBook(Connection connection) {
+
+        // :0
+
+    }
+
 
 }

@@ -59,15 +59,29 @@ public class StudentDataAccess {
             }
         }
 
-    // public int checkByRegNumAsId(Connection connection, String regNum) {
+    // --->  Focus in Student ID for Flow in Saving Booking Details
 
+    public int getStudentIdByRegNo(Connection connection, String regNum) throws SQLException {
 
+        String query = "SELECT * FROM students WHERE reg_num = ?";
 
-    // }
+        try(PreparedStatement ps = connection.prepareStatement(query)){
+            ps.setString(1, regNum);
 
-        public void fetchAllRegisteredStudents(Connection connection) throws SQLException {
+            try(ResultSet rs = ps.executeQuery()) {
 
-            String query = "SELECT * FROM students";
+                if(rs.next()){
+                    return rs.getInt(1); // Difference from Prev Method here u Old Man!
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    public void fetchAllRegisteredStudents(Connection connection) throws SQLException {
+
+        String query = "SELECT * FROM students";
 
             System.out.println("                                                      ");
             System.out.println("             --- Students Information ---             ");
