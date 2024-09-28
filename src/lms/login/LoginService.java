@@ -121,18 +121,11 @@ public class LoginService {
 
     }
 
-    public void displayUserMenu(Connection connection) {
+    public void displayUserMenu(Connection connection) throws SQLException {
 
         int choice;
         BookService bookService = new BookService(); // --> Not Use yet
         StudentService studentService = new StudentService(); // Not Use yet
-
-        /*
-         * Search
-         * in
-         * out
-         * Exit
-         */
 
         do {
 
@@ -148,6 +141,7 @@ public class LoginService {
 
             switch (choice) {
                 case 1:
+                    searchBook(connection);
                     break;
                 case 2:
                     break;

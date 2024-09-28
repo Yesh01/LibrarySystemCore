@@ -2,7 +2,7 @@ package lms.model;
 
 public class Book {
 
-    /*Setter & Getter Construction */
+    /*Setter & Getter */
 
     private int id;
     private int srlNo;
