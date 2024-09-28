@@ -42,9 +42,10 @@ public class StudentDataAccess {
 
     }
 
-    // ---> Method for checkig the Registration Number of the Student. [for Avoiding Duplication Error]
+    // ---> Method for Checkig the Registration Number of the Student. [for Avoiding Duplication Error]
+    // ---> Common Logic to Ask for System [Is Student is Exist? Y/N]
 
-    public boolean checkByRegNo(Connection connection, String regNum) throws SQLException {
+    public boolean isRegistered(Connection connection, String regNum) throws SQLException {
         
         String query = "SELECT * FROM students WHERE reg_num = ?";
 
@@ -57,6 +58,12 @@ public class StudentDataAccess {
                 }
             }
         }
+
+    // public int checkByRegNumAsId(Connection connection, String regNum) {
+
+
+
+    // }
 
         public void fetchAllRegisteredStudents(Connection connection) throws SQLException {
 

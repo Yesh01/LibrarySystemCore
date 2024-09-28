@@ -21,7 +21,7 @@ public class StudentService {
         String regNum = myBabyScanner.nextLine();
 
         StudentDataAccess dataAccess = new StudentDataAccess();
-        boolean isStudentExist = dataAccess.checkByRegNo(connection, regNum);
+        boolean isStudentExist = dataAccess.isRegistered(connection, regNum);
 
         if(isStudentExist) {
             System.out.println("[ !! ] Failed to Add the Student that had already exist.");
