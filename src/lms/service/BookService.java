@@ -176,7 +176,7 @@ public class BookService {
         System.out.println("[ :> ] Enter Registration Number: ");
         String regNum = myBabyScanner.nextLine();
 
-        // boolean isExists = dataAccess.isRegistered(connection, regNum); // [ 2 ]
+        boolean isExists = dataAccess.isRegistered(connection, regNum); // [ 2 ]
 
         if (!isExists) {
             System.out.println("[ !! ] Student is not Registered");

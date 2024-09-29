@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 // ---> Student's Table DB Structured [students]
 
@@ -108,6 +109,40 @@ public class StudentDataAccess {
                 }
             }
         }
+
+
+        // --> Final Phase to Save Booking Details in DB
+
+        public void saveBookingDetails(Connection connection, int stdId, int bookId, int qty) throws SQLException {
+
+            String query = "INSERT INTO booking_details(std_id, book_id, qty) VALUES(?, ?, ?)";
+
+            try(PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setInt(1, stdId);
+                ps.setInt(2, bookId);
+                ps.setInt(3, qty);
+
+                int row = ps.executeUpdate();
+
+                if(row > 0) {
+                    System.out.println("[ :> ] Booking Details Added Succesfully");
+                }
+                else {
+                    System.out.println("[ !! ] Failed to Add Booking Details");
+                }
+            }
+        }
+
+        // -->
+
+        public List<Records>  getBookingDetailsId(Connection connection, int stdId) {
+
+            String query = " ";
+
+        }
+
+        
+
 
 
 
