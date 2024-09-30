@@ -1,5 +1,6 @@
 package lms.database;
 
+import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -179,6 +180,19 @@ public class StudentDataAccess {
             }
 
             return bookList;
+
+        }
+
+        // ---> Delete here
+
+        public void deleteBookingDeteails(Connection connection, int id) throws SQLException {
+
+            String query = "DELETE FROM booking_details WHERE id = ? ";
+
+            try(PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setInt(1, id);
+                ps.executeUpdate();
+            }
 
         }
 
