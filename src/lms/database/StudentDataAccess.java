@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import lms.model.BookingDetails;
+import lms.model.Recoords;
 
 // ---> Student's Table DB Structured [students]
 
@@ -113,7 +116,7 @@ public class StudentDataAccess {
 
         // --> Final Phase to Save Booking Details in DB
 
-        public void saveBookingDetails(Connection connection, int stdId, int bookId, int qty) throws SQLException {
+        public void saveRecoords(Connection connection, int stdId, int bookId, int qty) throws SQLException {
 
             String query = "INSERT INTO booking_details(std_id, book_id, qty) VALUES(?, ?, ?)";
 
@@ -135,13 +138,51 @@ public class StudentDataAccess {
 
         // -->
 
-        public List<Records>  getBookingDetailsId(Connection connection, int stdId) {
+        public List<BookingDetails>  getRecoordsId(Connection connection, int stdId) throws SQLException {
 
-            String query = " ";
+            String query = "SELECT * FROM booking_details bd "
+                            + "INNER JOIN books b ON b.id = bd.books_id "
+                            + "WHERE bd_id = ? ";
+
+            List<BookingDetails> bookList = new ArrayList<>();
+
+            try(PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setInt(1, stdId);
+                ResultSet rs = ps.executeQuery();
+
+                while(rs.next()) {
+
+                    /*booking details
+                     *Name
+                     *bookName
+                     authorname
+                     book id
+                     std id
+                     srl no
+                     qty
+                     id
+                     */
+
+                     BookingDetails bookingDetails = new BookingDetails();
+                     bookingDetails.setBookName(rs.getString("NAME"));
+                     bookingDetails.setAuthorName(rs.getString("author_name"));
+                     bookingDetails.setBookId(rs.getInt("book_id"));
+                     bookingDetails.setStudentId(rs.getInt("std_id"));
+                     bookingDetails.setSrlNo(rs.getInt("serial_no"));
+                     bookingDetails.setQty(rs.getInt("qty"));
+                     bookingDetails.setId(rs.getInt("id"));
+
+                     bookList.add(bookingDetails);
+
+                }
+                
+            }
+
+            return bookList;
 
         }
 
-        
+
 
 
 
