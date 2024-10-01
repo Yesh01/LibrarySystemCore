@@ -137,9 +137,9 @@ public class StudentDataAccess {
             }
         }
 
-        // -->
+        // --> Implementation of Join Relationship 
 
-        public List<BookingDetails>  getRecoordsId(Connection connection, int stdId) throws SQLException {
+        public List<BookingDetails>  getRecordsId(Connection connection, int stdId) throws SQLException {
 
             String query = "SELECT * FROM booking_details bd "
                             + "INNER JOIN books b ON b.id = bd.books_id "

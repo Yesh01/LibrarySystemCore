@@ -30,7 +30,7 @@ public class BookingDetails {
      public int qty;
      public int srl_no;
 
-     public int get(){
+     public int getId(){ // amp [refractor] taena 2 hours koto hinanap as get() prev commited...
         return Id;
      }
 

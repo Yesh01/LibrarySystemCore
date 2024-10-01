@@ -7,6 +7,7 @@ import java.util.Scanner;
 import lms.database.BookDataAccess;
 import lms.database.StudentDataAccess;
 import lms.model.Book;
+import lms.model.BookingDetails;
 
 public class BookService {
 
@@ -156,7 +157,7 @@ public class BookService {
 
     /*                 [Check-IN]                    */
 
-    public void returnBook(Connection connection) {
+    public void returnBook(Connection connection) throws SQLException {
 
         /*
          *  [ 1 ]  Input For Reg No# for Verification
@@ -167,6 +168,8 @@ public class BookService {
          *  [ 4 ]  Using the [Stream API Filtered] recommended to the selected book in
          *         Booking Details in the lists of borrowed books maybe else not found will be null
          *  [ 5 ]  Update +1 the qty of Books in Database.
+         *  [ 6 ]  Delete for returned book
+         *
          */
 
         // :p
@@ -184,23 +187,40 @@ public class BookService {
             return;
         }
 
-        // int id = dataAccess.getStudentIdByRegNo(connection, regNum);
+        int id = dataAccess.getStudentIdByRegNo(connection, regNum);
+        List<BookingDetails> recordsList = dataAccess.getRecordsId(connection, id);
+        
         // --> To Show Displayed Lists Here
+
+        recordsList.stream().forEach(booking -> System.out.println(
+            String.format("%-10d %-30s %-30s",
+                            booking.getSrlNo(),
+                            booking.getAuthorName(),
+                            booking.getBookName())
+        ));
 
         // --> Stream API Usage
 
         System.out.println("[ :> ] Enter Serial No# of Book to be Check-In: ");
         int srlNo = myBabyScanner.nextInt();
 
-        // -->
+        BookingDetails matchingBooking = recordsList.stream()
+                    .filter(booking -> booking.getSrlNo() == srlNo)
+                    .findAny()
+                    .orElse(null);
+
+
+        // --> Connectionz
 
         BookDataAccess dBookDataAccess = new BookDataAccess();
-        // Book book = dBookDataAccess.getBooksBySrlNo(connection, srlNo);
+        Book book = dBookDataAccess.getBooksBySrlNo(connection, srlNo);
         book.setBookQty(book.getBookQty() + 1);
 
+        dBookDataAccess.updateBookQty(connection, book);
+        dataAccess.deleteBookingDeteails(connection, matchingBooking.getId());
+        
         // --> Update Qty
         // --> Also Delete as last
-
         // --> Continuation Tommorow After Sunday Service
 
     }
