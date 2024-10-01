@@ -101,8 +101,9 @@ public class LoginService {
         BookService bookService = new BookService();
 
         System.out.println("                                          ");
-        System.out.println("   [ 1. ] Search w/ Book Serial No.       ");
-        System.out.println("   [ 2. ] Search w/ Book's Author Name.   ");
+        System.out.println("   [ 1. ] View Available Books            ");
+        System.out.println("   [ 2. ] Search w/ Book Serial No.       ");
+        System.out.println("   [ 3. ] Search w/ Book's Author Name.   ");
         System.out.println("                                          ");
 
         System.out.println("[ :> ] Please Enter Your Choice: ");
@@ -110,13 +111,15 @@ public class LoginService {
 
         switch (choice) {
             case 1:
-                bookService.searchBySrlNo(connection);
+                bookService.displayCurrentBooks(connection);
                 break;
             case 2:
+                bookService.searchBySrlNo(connection);
+                break;
+            case 3:
                 bookService.searchByAuthorName(connection);
-                break;
             default:
-                break;
+                System.out.println("[ !! ] Please Select a Valid Option");
         }
 
     }
@@ -124,13 +127,13 @@ public class LoginService {
     public void displayUserMenu(Connection connection) throws SQLException {
 
         int choice;
-        BookService bookService = new BookService(); // --> Not Use yet
-        StudentService studentService = new StudentService(); // Not Use yet
+        BookService bookService = new BookService();
 
         do {
 
             System.out.println("                                        ");
             System.out.println("   [ 1. ] Search a Book                 ");
+            // System.out.println("   [ ?. ] View Your Registration No#    "); for Future-Updates
             System.out.println("   [ 2. ] Check-In a Book               ");
             System.out.println("   [ 3. ] Check-Out a Book              ");
             System.out.println("   [ 4. ] Exit From System              ");
@@ -144,10 +147,13 @@ public class LoginService {
                     searchBook(connection);
                     break;
                 case 2:
+                    bookService.returnBook(connection);
                     break;
                 case 3:
                     break;
                 case 4:
+                    break;
+                case 5:
                     System.out.println("[ :> ] Exiting...");
                     break;
                 default:
