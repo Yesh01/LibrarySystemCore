@@ -31,7 +31,8 @@ public class StudentDataAccess {
         try(PreparedStatement ps = connection.prepareStatement(query)) {
 
             ps.setString(1, studentName);
-            ps.setString(2, regNum);
+            ps.setString(1, regNum);
+            
 
             int rows = ps.executeUpdate();
 
@@ -135,13 +136,13 @@ public class StudentDataAccess {
             }
         }
 
-        // --> Implementation of Join Relationship 
+        // --> Implementation of Join Relationship
 
-        public List<BookingDetails>  getRecordsId(Connection connection, int stdId) throws SQLException {
+        public List<BookingDetails> getRecordsId(Connection connection, int stdId) throws SQLException {
 
             String query = "SELECT * FROM booking_details bd "
-                            + "INNER JOIN books b ON b.id = bd.books_id "
-                            + "WHERE bd_id = ? ";
+                            + "INNER JOIN books b ON b.id = bd.book_id "
+                            + "WHERE bd.std_id = ? ";
 
             List<BookingDetails> bookList = new ArrayList<>();
 
@@ -150,17 +151,6 @@ public class StudentDataAccess {
                 ResultSet rs = ps.executeQuery();
 
                 while(rs.next()) {
-
-                    /*booking details
-                     *Name
-                     *bookName
-                     authorname
-                     book id
-                     std id
-                     srl no
-                     qty
-                     id
-                     */
 
                      BookingDetails bookingDetails = new BookingDetails();
                      bookingDetails.setBookName(rs.getString("NAME"));
@@ -172,13 +162,9 @@ public class StudentDataAccess {
                      bookingDetails.setId(rs.getInt("id"));
 
                      bookList.add(bookingDetails);
-
                 }
-                
             }
-
             return bookList;
-
         }
 
         // ---> Delete here

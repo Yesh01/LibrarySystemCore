@@ -227,10 +227,46 @@ public class BookService {
 
     /*                 [Check-OUT]                 */
 
-    public void borrowBook(Connection connection) {
+    public void borrowBook(Connection connection) throws SQLException {
 
         // :0
 
+        // Same flow in Check-in. But more likely is opposite
+
+        StudentDataAccess dataAccess = new StudentDataAccess();
+
+        System.out.println("[ :> ] Enter Registration Number: ");
+        String regNum = myBabyScanner.nextLine();
+
+        boolean isExists = dataAccess.isRegistered(connection, regNum); // [ 2 ]
+
+        if (!isExists) {
+            System.out.println("[ !! ] Student is not Registered");
+            System.out.println("[ !! ] Please Register Firsts to the Admin NU-ITSO");
+            return;
+        }
+
+        displayCurrentBooks(connection);
+
+        System.out.println("[ :> ] Serial Number of the Book to Check-Out: ");
+        int srlNo = myBabyScanner.nextInt();
+
+        BookDataAccess dBookDataAccess = new BookDataAccess();
+        Book book = dBookDataAccess.getBooksBySrlNo(connection, srlNo);
+
+        if(book == null) {
+            System.out.println("Books is Not Available");
+            return;
+        }
+
+        book.setBookQty(book.getBookQty() - 1);
+
+        int id = dataAccess.getStudentIdByRegNo(connection, regNum);
+
+        dataAccess.saveRecoords(connection, id, book.getId(), 1);
+        dBookDataAccess.updateBookQty(connection, book);
+
+        
     }
 
 

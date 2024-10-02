@@ -150,10 +150,9 @@ public class LoginService {
                     bookService.returnBook(connection);
                     break;
                 case 3:
+                    bookService.borrowBook(connection);
                     break;
                 case 4:
-                    break;
-                case 5:
                     System.out.println("[ :> ] Exiting...");
                     break;
                 default:
